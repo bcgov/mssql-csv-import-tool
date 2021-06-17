@@ -1,6 +1,6 @@
 #Install
 
-`> python -m pip install git+https://github.com/bcgov/mssql-csv-import-tool.git`
+`python -m pip install git+https://github.com/bcgov/mssql-csv-import-tool.git`
 
 
 #Usage
@@ -29,22 +29,20 @@ optional arguments:
 
 #Secrets
 This command-line application uses the following environment variables
-to determine the database host name, username, password etc. 
+to determine the database name, database server, username etc. 
 
 ```
 TEST_DB_HOST=
 TEST_DB_NAME=
 TEST_DB_USERNAME=
-TEST_DB_PASSWORD=
-TEST_SHARE_DB=\\SHARE_HOST\SHARE_NAME
+TEST_SHARE_DB=\SERVER`SHARE
 
 PROD_DB_HOST=
 PROD_DB_NAME=
 PROD_DB_USERNAME=
-PROD_DB_PASSWORD=
 PROD_SHARE_DB=
 ```
 
 Save the
-`.env` file in a directory located above where the executable is installed.  
-###### Within Windows use `where mssql-import` to locate the executable.
+`.env` file in a directory located above where the executable is installed. 
+Within Windows use `where mssql-import` to locate the executable.

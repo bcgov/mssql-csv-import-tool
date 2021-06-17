@@ -7,6 +7,7 @@ import src.file_operations as file_operations
 def clean_and_verify_csv() -> list:
     return [
         {"try": database.set_environment_variables, "fail": []},
+        {"try": database.prompt_for_database_password_if_not_set, "fail": []},
         {"try": database.get_database_connection_string, "fail": []},
         {"try": database.get_database_connection, "fail": []},
         {"try": database.get_destination_table_schema, "fail": []},
@@ -44,6 +45,7 @@ def process_dataframe() -> list:
 def geocode_tas_accidents():
     return [
         {"try": database.set_environment_variables, "fail": []},
+        {"try": database.prompt_for_database_password_if_not_set, "fail": []},
         {"try": database.get_database_connection_string, "fail": []},
         {"try": database.get_database_connection, "fail": []},
         {"try": geolocation.get_tas_records_without_geolocation_data, "fail": []},

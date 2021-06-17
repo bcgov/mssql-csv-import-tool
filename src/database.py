@@ -7,6 +7,14 @@ from src.config import Config
 logging.basicConfig(level=Config.LOG_LEVEL, format=Config.LOG_FORMAT)
 
 
+def prompt_for_database_password_if_not_set(**args) -> tuple:
+    db_host = args.get('db_host')
+    environment = args.get('environment')
+    if not args.get('db_password'):
+        args['db_password'] = input("What's the database password for {} ({})".format(environment, db_host))
+    return True, args
+
+
 def set_environment_variables(**args) -> tuple:
     config = args.get('config')
     environment = args.get('environment')
