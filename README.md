@@ -30,6 +30,8 @@ optional arguments:
                         file. Defaults to 'TEST'
                         
   -d, --dry_run         run through import process but don't commit the changes
+  
+  -v --verbose          increase the verbosity of the log output
 
 ```
 

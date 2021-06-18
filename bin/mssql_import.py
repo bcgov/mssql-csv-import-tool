@@ -18,9 +18,12 @@ def main():
                         help='destination database environment')
     parser.add_argument('-d', '--dry_run', action='store_true',
                         help="run through import process but don't commit the changes")
+    parser.add_argument('-v', '--verbose', action='store_true',
+                        help="increase the verbosity of log output")
     args = parser.parse_args()
 
     helper.middle_logic(business.clean_and_verify_csv(),
+                        is_verbose=args.verbose,
                         config=Config,
                         destination_table=args.table,
                         is_dry_run=args.dry_run,

@@ -6,6 +6,7 @@ import src.file_operations as file_operations
 
 def clean_and_verify_csv() -> list:
     return [
+        {"try": file_operations.set_log_level, "fail": []},
         {"try": database.set_environment_variables, "fail": []},
         {"try": database.prompt_for_database_password_if_not_set, "fail": []},
         {"try": database.get_database_connection_string, "fail": []},

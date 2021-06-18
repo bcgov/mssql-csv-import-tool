@@ -2,9 +2,6 @@ import os
 import pyodbc
 import logging
 import json
-from src.config import Config
-
-logging.basicConfig(level=Config.LOG_LEVEL, format=Config.LOG_FORMAT)
 
 
 def prompt_for_database_password_if_not_set(**args) -> tuple:

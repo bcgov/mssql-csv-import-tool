@@ -1,8 +1,5 @@
 import json
 import logging
-from src.config import Config
-
-logging.basicConfig(level=Config.LOG_LEVEL, format=Config.LOG_FORMAT)
 
 
 def load_json_into_dict(file_name) -> dict:

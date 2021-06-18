@@ -6,10 +6,7 @@ load_dotenv()
 
 
 class Config:
-    LOG_FORMAT                          = "%(levelname)s::%(filename)s::%(lineno)s::%(message)s"
-    LOG_LEVEL                           = os.environ.get('LOG_LEVEL', 'DEBUG').upper()
 
-    # BI TEST DATABASE
     TEST_DB_HOST                        = os.getenv('TEST_DB_HOST')
     TEST_DB_NAME                        = os.getenv('TEST_DB_NAME')
     TEST_DB_USERNAME                    = os.getenv('TEST_DB_USERNAME')
@@ -32,7 +29,7 @@ class Config:
     PROD_SHARE_DB                       = os.getenv('PROD_SHARE_DB')
 
     # THE ODBC DRIVER MUST BE INSTALLED IN THE CONTAINER
-    ODBC_DRIVER                         = os.getenv('ODBC_DRIVER', 'ODBC Driver 17 for SQL Server')
+    ODBC_DRIVER                         = 'ODBC Driver 17 for SQL Server'
 
     # Pandas options
     CHUNK_SIZE                          = 5000

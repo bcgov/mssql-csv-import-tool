@@ -1,9 +1,5 @@
 import logging
 import os
-from src.config import Config
-
-
-logging.basicConfig(level=Config.LOG_LEVEL, format=Config.LOG_FORMAT)
 
 
 def determine_destination_filename(**args) -> tuple:
@@ -24,6 +20,14 @@ def delete_target_if_exists(**args) -> tuple:
         pass
     return True, args
 
+
+def set_log_level(**args) -> tuple:
+    is_verbose = args.get('is_verbose')
+    if is_verbose:
+        logging.basicConfig(level="DEBUG", format="%(levelname)s::%(filename)s::%(lineno)s::%(message)s")
+    else:
+        logging.basicConfig(level="INFO", format="%(levelname)s::%(message)s")
+    return True, args
 
 
 

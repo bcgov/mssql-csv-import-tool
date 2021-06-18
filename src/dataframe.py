@@ -1,13 +1,9 @@
 import logging
 import os
 import csv
-from src.config import Config
 import pandas as pd
 import src.helper as helper
 import src.business as business
-
-
-logging.basicConfig(level=Config.LOG_LEVEL, format=Config.LOG_FORMAT)
 
 
 def process_csv_in_chunks(**args) -> tuple:
