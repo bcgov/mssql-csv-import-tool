@@ -9,7 +9,7 @@ def determine_destination_filename(**args) -> tuple:
     destination_filename = local_destination + filename_array[1] + "_clean"
     args['destination_filename'] = destination_filename
     logging.critical("destination filename: " + destination_filename)
-    return False, args
+    return True, args
 
 
 def delete_target_if_exists(**args) -> tuple:

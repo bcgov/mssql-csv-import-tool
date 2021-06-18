@@ -34,11 +34,3 @@ class Config:
     # Pandas options
     CHUNK_SIZE                          = 5000
     TEMPORARY_TABLE_NAME                = '#temporary_data'
-
-
-class GeocodeTAS(Config):
-    CHUNK_SIZE                       = 200
-    GEOLOCATION_TABLE_NAME           = 'gis.geolocations'
-    DATA_BC_API_KEY                  = os.getenv('DATA_BC_API_KEY', '')
-    DATA_BC_API_URL                  = os.getenv('DATA_BC_API_URL', 'https://geocoder.api.gov.bc.ca/addresses.geojson')
-

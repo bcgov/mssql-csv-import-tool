@@ -26,6 +26,6 @@ setup(name='mssql-csv-import-tool',
         'urllib3==1.26.5',
       ],
       entry_points={
-        'console_scripts': ['mssql-import=bin.mssql_import:main', 'mssql-geocode=bin.geocode:main']
+        'console_scripts': ['mssql-import=bin.mssql_import:main']
       },
       zip_safe=False)

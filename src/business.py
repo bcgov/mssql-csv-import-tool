@@ -1,6 +1,5 @@
 import src.database as database
 import src.dataframe as dataframe
-import src.geolocation as geolocation
 import src.file_operations as file_operations
 
 
@@ -44,31 +43,3 @@ def process_dataframe() -> list:
     ]
 
 
-def geocode_tas_accidents():
-    return [
-        {"try": database.set_environment_variables, "fail": []},
-        {"try": database.prompt_for_database_password_if_not_set, "fail": []},
-        {"try": database.get_database_connection_string, "fail": []},
-        {"try": database.get_database_connection, "fail": []},
-        {"try": geolocation.get_tas_records_without_geolocation_data, "fail": []},
-        {"try": geolocation.geocode_each_record_write_to_db_in_chunks, "fail": []},
-        {"try": database.close_database_connection, "fail": []},
-    ]
-
-
-def geocode_each_record() -> list:
-    return [
-        {"try": geolocation.create_data_bc_payload, "fail": []},
-        {"try": geolocation.callout_to_databc, "fail": [
-            {"try": geolocation.substitute_default_databc_response, "fail": []},
-            {"try": geolocation.database_write_threshold_not_reached, "fail": [
-                {"try": geolocation.write_geolocation_to_database, "fail": []},
-                {"try": geolocation.get_tas_records_without_geolocation_data, "fail": []},
-            ]},
-        ]},
-        {"try": geolocation.transform_response_from_databc, "fail": []},
-        {"try": geolocation.database_write_threshold_not_reached, "fail": [
-           {"try": geolocation.write_geolocation_to_database, "fail": []},
-           {"try": geolocation.get_tas_records_without_geolocation_data, "fail": []},
-        ]},
-    ]
