@@ -20,6 +20,7 @@ def clean_and_verify_csv() -> list:
         {"try": database.create_temporary_table, "fail": []},
         {"try": database.bulk_import_from_text_file, "fail": []},
         {"try": database.merge_temporary_table_into_destination, "fail": []},
+        {"try": file_operations.delete_target_if_exists, "fail": []},
     ]
 
 

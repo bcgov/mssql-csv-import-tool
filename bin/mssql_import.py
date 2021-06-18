@@ -5,7 +5,9 @@ from src.config import Config
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Clean and verify CSV files before running stored procedures')
+    d = 'Clean and verify CSV file, bulk import to temporary table and then, '
+    d += 'merge temporary table with destination table.'
+    parser = argparse.ArgumentParser(description=d)
     parser.add_argument('-f', '--filename', required=True, help='path and filename of the CSV file for import')
     parser.add_argument('-t', '--table',
                         required=True,

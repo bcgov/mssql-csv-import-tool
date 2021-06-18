@@ -1,13 +1,19 @@
-#Install
+##Installation
 
 `python -m pip install git+https://github.com/bcgov/mssql-csv-import-tool.git`
 
+`python -m pip install git+https://github.com/bcgov/mssql-csv-import-tool.git --upgrade`
 
-#Usage
+
+##Usage
+
+`mssql-import -f H:\some-large-data-file.csv --table schema.table-name --environment PROD`
+
+
 ```
 mssql-import [-h] -f FILENAME -t TABLE [-e {TEST,PROD}] [-d]
 
-Clean and verify CSV files, bulk import to temporary table and then, 
+Clean and verify CSV file, bulk import to temporary table and then, 
 merge temporary table with destination table.
 
 optional arguments:
@@ -27,7 +33,8 @@ optional arguments:
 
 ```
 
-#Secrets
+
+##Secrets
 This command-line application uses the following environment variables
 to determine the database name, database server, username etc. 
 

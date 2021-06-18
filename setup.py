@@ -1,13 +1,13 @@
 from setuptools import setup, find_packages
 
 setup(name='mssql-csv-import-tool',
-      version='0.13',
+      version='0.14',
       description='Command line tool to import CSV files to MS-SQL server',
       url='https://github.com/bcgov/mssql-csv-import-tool',
       author='Jonathan Longe',
       author_email='jonathan.longe@gov.bc.ca',
       license='MIT',
-      packages=find_packages(include=['src', 'src.*']),
+      packages=find_packages(include=['src', 'src.*', 'bin', 'bin.*']),
       setup_requires=['wheel'],
       install_requires=[
         'certifi==2021.5.30',
@@ -26,6 +26,6 @@ setup(name='mssql-csv-import-tool',
         'urllib3==1.26.5',
       ],
       entry_points={
-        'console_scripts': ['mssql-import=src.mssql_import:main', 'mssql-geocode=src.geocode:main']
+        'console_scripts': ['mssql-import=bin.mssql_import:main', 'mssql-geocode=bin.geocode:main']
       },
       zip_safe=False)
