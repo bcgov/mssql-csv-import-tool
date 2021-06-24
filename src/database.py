@@ -83,7 +83,7 @@ def _create_table_columns(header_record, destination_schema) -> str:
     for column_name in header_record:
         column = destination_schema[column_name]
         if column['DATA_TYPE'] == 'varchar':
-            result.append("{} VARCHAR({})".format(column_name, column['CHARACTER_MAXIMUM_LENGTH']))
+            result.append("{} VARCHAR({})".format(column_name, _varchar_length(column['CHARACTER_MAXIMUM_LENGTH'])))
         elif column['DATA_TYPE'] == 'numeric':
             result.append("{} NUMERIC({},{})".format(
                 column_name,
@@ -103,6 +103,16 @@ def _create_table_columns(header_record, destination_schema) -> str:
     result_string = ", ".join(result)
     logging.debug(result_string)
     return result_string
+
+
+def _varchar_length(max_length: int) -> str:
+    """
+    MS-SQL uses '-1' to indicate VARCHAR(MAX)
+    This returns "MAX" when length is '-1'; otherwise length
+    """
+    if max_length < 0:
+        return "MAX"
+    return str(max_length)
 
 
 def get_destination_table_schema(**args) -> tuple:

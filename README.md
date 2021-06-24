@@ -1,11 +1,14 @@
-##Installation
+## Prerequisites
+Install Python 3 from https://www.python.org/downloads/windows/
+
+## Installation
 
 `python -m pip install git+https://github.com/bcgov/mssql-csv-import-tool.git`
 
 `python -m pip install git+https://github.com/bcgov/mssql-csv-import-tool.git --upgrade`
 
 
-##Usage
+## Usage
 
 `mssql-import -f H:\some-large-data-file.csv --table schema.table-name --environment PROD`
 
@@ -36,7 +39,7 @@ optional arguments:
 ```
 
 
-##Secrets
+## Secrets
 This command-line application uses the following environment variables
 to determine the database name, database server, username etc. 
 
