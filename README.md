@@ -1,3 +1,19 @@
+![Lifecycle:Experimental](https://img.shields.io/badge/Lifecycle-Experimental-339999)
+
+## Background
+MS-SQL's built-in bulk import tool cannot parse comma separated value (CSV) files when the values 
+contain a comma even if the value is wrapped in quotes. For example, below is a two-column import file:
+
+```text
+Column1,Column2
+"Some Text","Some, other text"
+```
+
+MS-SQL's bulk import tool counts the comma after the word "Some" as a delimiter which incorrectly increases
+the number of columns in the first data row from two to three.
+
+This tool helps correct and import CSV files to MS-SQL.
+
 ## Prerequisites
 Install `python3` from https://www.python.org/downloads/windows/
 
