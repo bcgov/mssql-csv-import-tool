@@ -1,11 +1,16 @@
 ## Prerequisites
-Install Python 3 from https://www.python.org/downloads/windows/
+Install `python3` from https://www.python.org/downloads/windows/
+
+Install `pip`: https://pip.pypa.io/en/stable/installing/
+
+Install `git`: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
 ## Installation
+From Windows command prompt:
 
-`python -m pip install git+https://github.com/bcgov/mssql-csv-import-tool.git`
+`pip install git+https://github.com/bcgov/mssql-csv-import-tool.git`
 
-`python -m pip install git+https://github.com/bcgov/mssql-csv-import-tool.git --upgrade`
+`pip install git+https://github.com/bcgov/mssql-csv-import-tool.git --upgrade`
 
 
 ## Usage
