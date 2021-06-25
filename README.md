@@ -17,8 +17,6 @@ This tool helps correct and import CSV files to MS-SQL.
 ## Prerequisites
 Install `python3` from https://www.python.org/downloads/windows/
 
-Install `pip`: https://pip.pypa.io/en/stable/installing/
-
 Install `git`: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
 ## Installation
@@ -75,7 +73,7 @@ TEST_SHARE_DB=\\SERVER\SHARE
 PROD_DB_HOST=
 PROD_DB_NAME=
 PROD_DB_USERNAME=
-TEST_SHARE_LOCAL=I:\
+PROD_SHARE_LOCAL=I:\
 PROD_SHARE_DB=\\SERVER\SHARE
 
 ```
