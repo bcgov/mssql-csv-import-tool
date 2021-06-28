@@ -9,8 +9,9 @@ import src.business as business
 def process_csv_in_chunks(**args) -> tuple:
     filename = args.get('filename')
     config = args.get('config')
+    delimiter = args.get('delimiter')
     with pd.read_csv(filename,
-                     delimiter=",",
+                     delimiter=delimiter,
                      header=0,
                      dtype=object,
                      na_values='',

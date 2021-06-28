@@ -256,3 +256,37 @@ def test_when_import_file_includes_columns_without_a_db_match_a_warning_is_shown
         # Note: COL_3 is not not included in the import
         assert clean_text == "COL_1\nvalue1\n"
     assert 'cannot be found in schema.table: MISSING_COLUMN (col 2)' in caplog.text
+
+
+def test_source_file_can_be_delimited_by_pipes_instead_of_commas(some_fixture, tmpdir):
+    input_file, config = some_fixture
+    database_returns_this_schema = {
+        "COL_1": {
+            "COLUMN_NAME": "COL_1",
+            "DATA_TYPE": "varchar",
+            "CHARACTER_MAXIMUM_LENGTH": '7',
+            "IS_NULLABLE": ""
+        },
+        "COL_2": {
+            "COLUMN_NAME": "COL_2",
+            "DATA_TYPE": "date",
+            "CHARACTER_MAXIMUM_LENGTH": None,
+            "IS_NULLABLE": ""
+        }
+    }
+    with open(input_file, 'w') as file:
+        file.write("col_1|col_2\nvalue1|2021-04-03")
+
+    helper.middle_logic(business.clean_and_verify_csv(),
+                        is_verbose=False,
+                        delimiter="|",
+                        destination_schema=database_returns_this_schema,
+                        config=config,
+                        destination_table='schema.table',
+                        is_dry_run=True,
+                        environment='TEST',
+                        filename=input_file)
+    with open(str(input_file) + '_clean', 'r') as clean_file:
+        clean_text = clean_file.read()
+        assert clean_text == "COL_1|COL_2\nvalue1|2021-04-03\n"
+
