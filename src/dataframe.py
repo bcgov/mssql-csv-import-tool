@@ -98,7 +98,7 @@ def convert_dates(**args) -> tuple:
     for column_name in header_record:
         if destination_schema[column_name]['DATA_TYPE'][0:4] == 'date':
             try:
-                data_frame[column_name] = pd.to_datetime(data_frame[column_name])
+                data_frame[column_name] = pd.to_datetime(data_frame[column_name], dayfirst=True)
             except pd.errors.OutOfBoundsDatetime as error:
                 logging.warning(error)
                 logging.warning('the error above has prevented the date or datetime values')
@@ -140,3 +140,8 @@ def check_no_not_null_fields_missing(**args) -> tuple:
                 return False, args
     return True, args
 
+
+def uppercase_column_names(**args) -> tuple:
+    data_frame = args.get('data_frame')
+    data_frame.columns = map(str.upper, data_frame.columns)
+    return True, args

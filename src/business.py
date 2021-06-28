@@ -26,6 +26,7 @@ def clean_and_verify_csv() -> list:
 
 def process_dataframe() -> list:
     return [
+        {"try": dataframe.uppercase_column_names, "fail": []},
         {"try": dataframe.is_first_dataframe, "fail": [
             {"try": dataframe.trim_string_values, "fail": []},
             {"try": dataframe.convert_dates, "fail": []},

@@ -120,7 +120,7 @@ def get_destination_table_schema(**args) -> tuple:
     destination = destination_table.split('.')
     schema = dict()
     cursor = args.get('cursor')
-    columns = ['COLUMN_NAME', 'DATA_TYPE', 'CHARACTER_MAXIMUM_LENGTH',
+    columns = ['UPPER(COLUMN_NAME)', 'DATA_TYPE', 'CHARACTER_MAXIMUM_LENGTH',
                'NUMERIC_PRECISION', 'NUMERIC_SCALE', 'IS_NULLABLE']
     sql = "SELECT {} FROM {}.INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='{}' AND TABLE_SCHEMA='{}';".format(
         ','.join(columns),
@@ -136,7 +136,7 @@ def get_destination_table_schema(**args) -> tuple:
         logging.critical('unable to find destination table: {}'.format(destination_table))
         return False, args
     for row in records:
-        column_name = row[0].upper()
+        column_name = row[0]
         schema[column_name] = dict(zip(columns, row))
     logging.debug(sql)
     logging.debug("destination table schema: {}".format(json.dumps(schema)))
