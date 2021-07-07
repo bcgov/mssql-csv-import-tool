@@ -91,6 +91,8 @@ def _create_table_columns(header_record, destination_schema) -> str:
                 column['NUMERIC_SCALE']))
         elif column['DATA_TYPE'] == 'smallint':
             result.append("{} SMALLINT".format(column_name))
+        elif column['DATA_TYPE'] == 'int':
+            result.append("{} INT".format(column_name))
         elif column['DATA_TYPE'] == 'date':
             result.append("{} DATE".format(column_name))
         elif column['DATA_TYPE'] == 'datetime':
