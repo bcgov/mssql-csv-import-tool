@@ -35,8 +35,9 @@ From Windows command prompt:
 ```
 mssql-import [-h] -f FILENAME -t TABLE [-e {TEST,PROD}] [-d]
 
-Clean and verify CSV file, bulk import to temporary table and then, 
-merge temporary table with destination table.
+Clean and verify CSV file, import to a temporary table and merge the temporary table with destination
+table. If the source file includes dates the format must be declared with either --month_first or
+--day_first (version: 0.19)
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -54,6 +55,10 @@ optional arguments:
   -d, --dry_run         run through import process but don't commit the changes
   
   -v --verbose          increase the verbosity of the log output
+  
+  --day_first           source date formatted with day before month: 31/03/2020
+  
+  --month_first         source date formatted with month before day: 03/31/2020
 
 ```
 

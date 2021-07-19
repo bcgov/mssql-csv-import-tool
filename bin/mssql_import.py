@@ -26,9 +26,9 @@ def main():
     parser.add_argument('-v', '--verbose', action='store_true',
                         help="increase the verbosity of log output")
     parser.add_argument('--day_first', dest='day_first', action='store_true',
-                        help="source data date formatted with day before month: 31/03/2020")
+                        help="source date formatted with day before month: 31/03/2020")
     parser.add_argument('--month_first', dest='day_first', action='store_false',
-                        help="source data date formatted with month before day: 03/31/2020")
+                        help="source date formatted with month before day: 03/31/2020")
     parser.set_defaults(day_first=None)
     args = parser.parse_args()
 
