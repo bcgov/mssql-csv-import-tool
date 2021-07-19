@@ -146,10 +146,42 @@ def test_input_file_with_ambiguous_date_format_correctly_converts_date(some_fixt
                         destination_table='schema.table',
                         is_dry_run=True,
                         environment='TEST',
-                        filename=input_file)
+                        filename=input_file,
+                        day_first=True)
     with open(str(input_file) + '_clean', 'r') as clean_file:
         clean_text = clean_file.read()
         assert clean_text == "COL_1|COL_2\nvalue1|2021-01-03\n"
+
+
+def test_error_shown_if_file_includes_a_date_column_but_date_format_not_declared(some_fixture, tmpdir, caplog):
+    input_file, config = some_fixture
+    database_returns_this_schema = {
+        "COL_1": {
+            "COLUMN_NAME": "COL_1",
+            "DATA_TYPE": "varchar",
+            "CHARACTER_MAXIMUM_LENGTH": '7',
+            "IS_NULLABLE": ""
+        },
+        "COL_2": {
+            "COLUMN_NAME": "COL_2",
+            "DATA_TYPE": "date",
+            "CHARACTER_MAXIMUM_LENGTH": None,
+            "IS_NULLABLE": ""
+        }
+    }
+    with open(input_file, 'w') as file:
+        file.write('COL_1,COL_2\n"value1","03/01/21"')
+
+    helper.middle_logic(business.clean_and_verify_csv(),
+                        is_verbose=False,
+                        destination_schema=database_returns_this_schema,
+                        config=config,
+                        destination_table='schema.table',
+                        is_dry_run=True,
+                        environment='TEST',
+                        filename=input_file,
+                        day_first=None)  # <-- date format not set
+    assert 'date format not set' in caplog.text
 
 
 def test_database_must_return_uppercase_column_names(some_fixture, tmpdir, caplog):
@@ -285,7 +317,8 @@ def test_source_file_can_be_delimited_by_pipes_instead_of_commas(some_fixture, t
                         destination_table='schema.table',
                         is_dry_run=True,
                         environment='TEST',
-                        filename=input_file)
+                        filename=input_file,
+                        day_first=True)
     with open(str(input_file) + '_clean', 'r') as clean_file:
         clean_text = clean_file.read()
         assert clean_text == "COL_1|COL_2\nvalue1|2021-04-03\n"

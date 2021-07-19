@@ -36,6 +36,7 @@ def process_dataframe() -> list:
         {"try": dataframe.check_all_csv_columns_have_matching_db_fields, "fail": []},
         {"try": dataframe.create_header_record, "fail": []},
         {"try": dataframe.get_list_of_date_columns, "fail": []},
+        {"try": dataframe.check_date_format_set_if_date_fields_present, "fail": []},
         {"try": dataframe.check_no_not_null_fields_missing, "fail": []},
         {"try": dataframe.trim_string_values, "fail": []},
         {"try": dataframe.convert_dates, "fail": []},

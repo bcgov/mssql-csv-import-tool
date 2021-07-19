@@ -81,6 +81,16 @@ def get_list_of_date_columns(**args) -> tuple:
     return True, args
 
 
+def check_date_format_set_if_date_fields_present(**args) -> tuple:
+    date_columns = args.get('date_columns')
+    day_first = args.get('day_first')
+    if len(date_columns) > 0 and day_first is None:
+        logging.critical('date format not set')
+        args['critical_error'] = True
+        return False, args
+    return True, args
+
+
 def format_numeric_values(**args) -> tuple:
     data_frame = args.get('data_frame')
     header_record = args.get('header_record')
@@ -96,10 +106,11 @@ def convert_dates(**args) -> tuple:
     data_frame = args.get('data_frame')
     header_record = args.get('header_record')
     destination_schema = args.get('destination_schema')
+    day_first = args.get('day_first')
     for column_name in header_record:
         if destination_schema[column_name]['DATA_TYPE'][0:4] == 'date':
             try:
-                data_frame[column_name] = pd.to_datetime(data_frame[column_name], dayfirst=True)
+                data_frame[column_name] = pd.to_datetime(data_frame[column_name], dayfirst=day_first)
             except pd.errors.OutOfBoundsDatetime as error:
                 logging.warning(error)
                 logging.warning('the error above has prevented the date or datetime values')

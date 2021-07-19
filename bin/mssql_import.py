@@ -6,9 +6,9 @@ from src.config import Config
 
 def main():
     d = 'Clean and verify CSV file, import to a temporary table and '
-    d += 'merge the temporary table with destination table. Dates are assumed'
-    d += 'to be in a format with the day before the month. ie "28/02/2021"'
-    d += '(version: 0.18)'
+    d += 'merge the temporary table with destination table. If the source file '
+    d += 'includes dates the format must be declared with either --month_first or --day_first '
+    d += '(version: 0.19)'
     parser = argparse.ArgumentParser(description=d)
     parser.add_argument('-f', '--filename', required=True, help='path and filename of the CSV file for import')
     parser.add_argument('-t', '--table',
@@ -25,6 +25,11 @@ def main():
                         help="run through import process but don't commit the changes")
     parser.add_argument('-v', '--verbose', action='store_true',
                         help="increase the verbosity of log output")
+    parser.add_argument('--day_first', dest='day_first', action='store_true',
+                        help="source data date formatted with day before month: 31/03/2020")
+    parser.add_argument('--month_first', dest='day_first', action='store_false',
+                        help="source data date formatted with month before day: 03/31/2020")
+    parser.set_defaults(day_first=None)
     args = parser.parse_args()
 
     helper.middle_logic(business.clean_and_verify_csv(),
@@ -34,7 +39,8 @@ def main():
                         destination_table=args.table,
                         is_dry_run=args.dry_run,
                         environment=args.environment,
-                        filename=args.filename)
+                        filename=args.filename,
+                        day_first=args.day_first)
 
 
 if __name__ == '__main__':
