@@ -41,6 +41,7 @@ def write_dataframe_to_file(**args) -> tuple:
                       mode='a',
                       sep='|',
                       header=is_initial_write,
+                      line_terminator='\n',
                       columns=header_record,
                       quoting=csv.QUOTE_NONE)
     logging.info('records written to {}: {}'.format(
