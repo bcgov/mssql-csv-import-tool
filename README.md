@@ -33,11 +33,11 @@ From Windows command prompt:
 
 
 ```
-mssql-import [-h] -f FILENAME -t TABLE [-e {TEST,PROD}] [-d]
+mssql-import [-h] -f FILENAME -t TABLE [-e {TEST,PROD}] [-n] [-d] [-v] [--day_first] [--month_first]
 
 Clean and verify CSV file, import to a temporary table and merge the temporary table with destination
 table. If the source file includes dates the format must be declared with either --month_first or
---day_first (version: 0.21)
+--day_first (version: 0.22)
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -52,13 +52,16 @@ optional arguments:
                         destination database environment as configured in the .env
                         file. Defaults to 'TEST'
                         
-  -d, --dry_run         run through import process but don't commit the changes
+  -n, --dry_run         run through import process but don't commit the changes
+  
+  -d, --delimiter       the character used to separate fields in the source file. Defaults to -d ','
+                        The other commonly used delimiter is a pipe: -d '|'
   
   -v --verbose          increase the verbosity of the log output
   
-  --day_first           source date formatted with day before month: 31/03/2020
+  --day_first           source date formatted with day before month: 31/03/2020 or 2020/31/03
   
-  --month_first         source date formatted with month before day: 03/31/2020
+  --month_first         source date formatted with month before day: 03/31/2020 or 2020/03/31
 
 ```
 
