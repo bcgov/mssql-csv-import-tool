@@ -99,6 +99,8 @@ def _create_table_columns(header_record, destination_schema) -> str:
             result.append("{} DATETIME".format(column_name))
         elif column['DATA_TYPE'] == 'datetime2':
             result.append("{} DATETIME2".format(column_name))
+        elif column['DATA_TYPE'] == 'time':
+            result.append("{} TIME".format(column_name))
         else:
             logging.critical('data type not found: {}'.format(column))
 
