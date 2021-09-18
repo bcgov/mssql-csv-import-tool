@@ -159,7 +159,8 @@ def get_destination_primary_keys(**args) -> tuple:
     sql += "Col.Constraint_Name = Tab.Constraint_Name "
     sql += "AND Col.Table_Name = Tab.Table_Name "
     sql += "AND Constraint_Type = 'PRIMARY KEY' "
-    sql += "AND Col.Table_Name = '{}'".format(destination[1])
+    sql += "AND Col.Table_Name = '{}' ".format(destination[1])
+    sql += "AND Col.CONSTRAINT_SCHEMA = '{}'".format(destination[0])
 
     try:
         records = cursor.execute(sql).fetchall()
