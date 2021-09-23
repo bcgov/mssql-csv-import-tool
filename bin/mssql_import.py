@@ -8,7 +8,7 @@ def main():
     d = 'Clean and verify CSV file, import to a temporary table and '
     d += 'merge the temporary table with destination table. If the source file '
     d += 'includes dates the format must be declared with either --month_first or --day_first '
-    d += '(version: 0.24)'
+    d += '(version: 0.25)'
     parser = argparse.ArgumentParser(description=d)
     parser.add_argument('-f', '--filename', required=True, help='path and filename of the CSV file for import')
     parser.add_argument('-t', '--table',

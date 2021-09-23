@@ -36,14 +36,15 @@ def write_dataframe_to_file(**args) -> tuple:
     is_initial_write = chunk_index == 0
     destination_filename = args.get('destination_filename')
     filepath_list = os.path.split(destination_filename)
-    data_frame.to_csv(destination_filename,
-                      index=False,
-                      mode='a',
-                      sep='|',
-                      header=is_initial_write,
-                      line_terminator='\n',
-                      columns=header_record,
-                      quoting=csv.QUOTE_NONE)
+    with open(destination_filename, "w") as openfile:
+        data_frame.to_csv(openfile,
+                          index=False,
+                          mode='a',
+                          sep='|',
+                          header=is_initial_write,
+                          line_terminator='\n',
+                          columns=header_record,
+                          quoting=csv.QUOTE_NONE)
     logging.info('records written to {}: {}'.format(
         filepath_list[1],
         config.CHUNK_SIZE * (chunk_index + 1)))
