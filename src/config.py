@@ -34,3 +34,6 @@ class Config:
     # Pandas options
     CHUNK_SIZE                          = 5000
     TEMPORARY_TABLE_NAME                = '#temporary_data'
+
+    # Number of seconds to wait before bulk importing the temporary file
+    BULK_IMPORT_WAIT                     = int(os.getenv('BULK_IMPORT_WAIT', '10'))

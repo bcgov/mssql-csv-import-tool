@@ -35,9 +35,9 @@ def wait_for_file_to_finish_writing(**args) -> tuple:
     """
     This wait shouldn't be required but appears to be help with larger files.
     """
-    seconds_to_wait = 10
-    logging.info("waiting {} seconds for file to finish writing and unlock".format(seconds_to_wait))
-    time.sleep(seconds_to_wait)
+    config = args.get('config')
+    logging.info("waiting {} seconds for file to finish writing and unlock".format(config.BULK_IMPORT_WAIT))
+    time.sleep(config.BULK_IMPORT_WAIT)
     return True, args
 
 
