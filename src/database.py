@@ -183,8 +183,8 @@ def count_temporary_table_records(**args) -> tuple:
     config = args.get('config')
     cursor = args.get('cursor')
     sql = "SELECT count(*) FROM {}".format(config.TEMPORARY_TABLE_NAME)
-    result = cursor.execute(sql).fetchall()
-    logging.info("number of records imported to {}: {}".format(config.TEMPORARY_TABLE_NAME, result[0][0]))
+    row = cursor.execute(sql).fetchone()
+    logging.info("number of rows in {}: {}".format(config.TEMPORARY_TABLE_NAME, row[0]))
     return True, args
 
 
