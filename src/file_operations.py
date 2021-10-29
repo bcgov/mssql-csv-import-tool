@@ -15,10 +15,12 @@ def determine_destination_filename(**args) -> tuple:
 
 def delete_target_if_exists(**args) -> tuple:
     destination_filename = args.get('destination_filename')
-    try:
-        os.remove(destination_filename)
-    except OSError:
-        pass
+    if not args.get('is_verbose'):
+        try:
+            os.remove(destination_filename)
+        except OSError as e:
+            logging.warning(str(e))
+            return False, args
     return True, args
 
 
