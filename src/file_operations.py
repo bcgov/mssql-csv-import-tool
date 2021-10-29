@@ -1,4 +1,5 @@
 import logging
+import time
 import os
 
 
@@ -27,6 +28,16 @@ def set_log_level(**args) -> tuple:
         logging.basicConfig(level="DEBUG", format="%(levelname)s::%(filename)s::%(lineno)s::%(message)s")
     else:
         logging.basicConfig(level="INFO", format="%(levelname)s::%(message)s")
+    return True, args
+
+
+def wait_for_file_to_finish_writing(**args) -> tuple:
+    """
+    This wait shouldn't be required but appears to be help with larger files.
+    """
+    seconds_to_wait = 10
+    logging.info("waiting {} seconds for file to finish writing and unlock".format(seconds_to_wait))
+    time.sleep(seconds_to_wait)
     return True, args
 
 
