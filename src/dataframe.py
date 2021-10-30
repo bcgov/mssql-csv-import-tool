@@ -36,7 +36,7 @@ def write_dataframe_to_file(**args) -> tuple:
     is_initial_write = chunk_index == 0
     destination_filename = args.get('destination_filename')
     filepath_list = os.path.split(destination_filename)
-    logging.debug('count of records in dataframe: ' + str(len(data_frame.index) + 1))
+    logging.debug('count of records in dataframe: ' + str(len(data_frame.shape[0])))
     with open(destination_filename, "w") as openfile:
         data_frame.to_csv(openfile,
                           index=False,
