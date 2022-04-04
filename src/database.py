@@ -303,7 +303,7 @@ def bulk_import_from_text_file(**args) -> tuple:
     cursor = args.get('cursor')
     connection = args.get('connection')
     sql = "BULK INSERT {} FROM '{}' WITH ".format(config.TEMPORARY_TABLE_NAME, filename)
-    sql += "(FIELDTERMINATOR ='|', ROWTERMINATOR =  '0x0a')"
+    sql += "(FIRSTROW = 2, FIELDTERMINATOR ='|', ROWTERMINATOR =  '0x0a')"
 
     logging.debug("sql: " + sql)
     try:
