@@ -17,6 +17,7 @@ def clean_and_verify_csv() -> list:
 
         {"try": file_operations.determine_destination_filename, "fail": []},
         {"try": file_operations.delete_target, "fail": []},
+        {"try": file_operations.count_rows_in_import_file, "fail": []},
         {"try": dataframe.process_csv_in_chunks, "fail": []},
 
         {"try": database.create_temporary_table, "fail": []},

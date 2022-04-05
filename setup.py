@@ -12,6 +12,7 @@ setup(name='mssql-csv-import-tool',
       install_requires=[
         'certifi==2021.5.30',
         'chardet==4.0.0',
+        'gooey==1.0.8.1',
         'greenlet==1.1.0',
         'idna==2.10',
         'numpy==1.20.3',

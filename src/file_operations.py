@@ -13,6 +13,13 @@ def determine_destination_filename(**args) -> tuple:
     return True, args
 
 
+def count_rows_in_import_file(**args) -> tuple:
+    print("Counting the size of the file ...")
+    filename = args.get('filename')
+    args['total_rows'] = sum(1 for line in open(filename))
+    return True, args
+
+
 def delete_target_if_not_verbose(**args) -> tuple:
     """
     Deletes the destination file if the --verbose flag is set
@@ -48,7 +55,7 @@ def wait_for_file_to_finish_writing(**args) -> tuple:
     This wait shouldn't be required but appears to be help with larger files.
     """
     config = args.get('config')
-    logging.info("waiting {} seconds for file to finish writing and unlock".format(config.BULK_IMPORT_WAIT))
+    print("waiting {} seconds for file to finish writing and unlock".format(config.BULK_IMPORT_WAIT))
     time.sleep(config.BULK_IMPORT_WAIT)
     return True, args
 

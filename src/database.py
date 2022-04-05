@@ -184,7 +184,7 @@ def count_temporary_table_records(**args) -> tuple:
     cursor = args.get('cursor')
     sql = "SELECT count(*) FROM {}".format(config.TEMPORARY_TABLE_NAME)
     row = cursor.execute(sql).fetchone()
-    logging.info("number of rows in {}: {}".format(config.TEMPORARY_TABLE_NAME, row[0]))
+    print("number of rows in {}: {}".format(config.TEMPORARY_TABLE_NAME, row[0]))
     return True, args
 
 
@@ -247,9 +247,9 @@ def merge_temporary_table_into_destination(**args) -> tuple:
         return False, args
     if not is_dry_run:
         connection.commit()
-        logging.info("SUCCESS: {} has been merged to into {}".format(filename, destination_table))
+        print("SUCCESS: {} has been merged to into {}".format(filename, destination_table))
     else:
-        logging.warning("DRY RUN OPTION SELECTED - NO CHANGES COMMITTED")
+        print("DRY RUN OPTION SELECTED - NO CHANGES COMMITTED")
     return True, args
 
 
@@ -313,6 +313,6 @@ def bulk_import_from_text_file(**args) -> tuple:
         logging.critical('error writing to db ' + str(e))
         return False, args
     connection.commit()
-    logging.info("bulk import to {} complete".format(config.TEMPORARY_TABLE_NAME))
+    print("bulk import to {} complete".format(config.TEMPORARY_TABLE_NAME))
     return True, args
 

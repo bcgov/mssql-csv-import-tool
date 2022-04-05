@@ -33,6 +33,7 @@ def process_csv_in_chunks(**args) -> tuple:
 def write_dataframe_to_file(**args) -> tuple:
     data_frame = args.get('data_frame')
     header_record = args.get('header_record')
+    total_rows = args.get('total_rows', 1)
     chunk_index = args.get('chunk_index')
     is_initial_write = chunk_index == 0
     destination_filename = args.get('destination_filename')
@@ -50,9 +51,10 @@ def write_dataframe_to_file(**args) -> tuple:
                           columns=header_record,
                           quoting=csv.QUOTE_NONE)
     rows_written = args.get('rows_written') + data_frame[data_frame.columns[0]].count()
-    logging.info('{} rows written to {} '.format(
+    logging.debug('{} rows written to {} '.format(
         str(rows_written),
         filepath_list[1]))
+    print('Progress: {}/{}'.format(rows_written, total_rows))
     args['rows_written'] = rows_written
     return True, args
 
