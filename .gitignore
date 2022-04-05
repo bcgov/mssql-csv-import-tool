@@ -9,3 +9,9 @@ __pycache__/
 # docker-compose secret files
 .env
 
+# build artifacts
+build/
+dist/
+.eggs/
+mssql_csv_import_tool.egg-info/
+

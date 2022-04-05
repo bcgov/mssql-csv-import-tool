@@ -37,7 +37,7 @@ mssql-import [-h] -f FILENAME -t TABLE [-e {TEST,PROD}] [-n] [-d] [-v] [--day_fi
 
 Clean and verify CSV file, import to a temporary table and merge the temporary table with destination
 table. If the source file includes dates the format must be declared with either --month_first or
---day_first (version: 0.32)
+--day_first (version: 0.XX)
 
 optional arguments:
   -h, --help            show this help message and exit

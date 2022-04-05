@@ -13,14 +13,24 @@ def determine_destination_filename(**args) -> tuple:
     return True, args
 
 
-def delete_target_if_exists(**args) -> tuple:
+def delete_target_if_not_verbose(**args) -> tuple:
+    """
+    Deletes the destination file if the --verbose flag is set
+    and returns True if the file is deleted
+    """
     destination_filename = args.get('destination_filename')
     if not args.get('is_verbose'):
-        try:
-            os.remove(destination_filename)
-        except OSError as e:
-            logging.warning(str(e))
-            return False, args
+        return _delete_file(destination_filename), args
+    return True, args
+
+
+def delete_target(**args) -> tuple:
+    """
+    Deletes the destination file and returns True
+    regardless whether the destination file exists or not
+    """
+    destination_filename = args.get('destination_filename')
+    _delete_file(destination_filename)
     return True, args
 
 
@@ -41,6 +51,15 @@ def wait_for_file_to_finish_writing(**args) -> tuple:
     logging.info("waiting {} seconds for file to finish writing and unlock".format(config.BULK_IMPORT_WAIT))
     time.sleep(config.BULK_IMPORT_WAIT)
     return True, args
+
+
+def _delete_file(filename: str) -> bool:
+    try:
+        os.remove(filename)
+        return True
+    except OSError as e:
+        logging.debug(str(e))
+        return False
 
 
 

@@ -34,5 +34,3 @@ def middle_logic(functions: list, **args):
         else:
             args = middle_logic(try_fail_node['fail'], **args)
     return args
-
-

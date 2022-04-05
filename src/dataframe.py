@@ -10,9 +10,11 @@ def process_csv_in_chunks(**args) -> tuple:
     filename = args.get('filename')
     config = args.get('config')
     delimiter = args.get('delimiter')
+    args['rows_written'] = 0
     with pd.read_csv(filename,
                      delimiter=delimiter,
-                     header=0,
+                     header=int(not args.get('has_header_record')),
+                     names=args.get('columns'),
                      dtype=object,
                      na_values='',
                      na_filter=False,
@@ -30,25 +32,28 @@ def process_csv_in_chunks(**args) -> tuple:
 
 def write_dataframe_to_file(**args) -> tuple:
     data_frame = args.get('data_frame')
-    config = args.get('config')
     header_record = args.get('header_record')
     chunk_index = args.get('chunk_index')
     is_initial_write = chunk_index == 0
     destination_filename = args.get('destination_filename')
     filepath_list = os.path.split(destination_filename)
     logging.debug('count of records in dataframe: ' + str(data_frame.shape[0]))
-    with open(destination_filename, "w") as openfile:
+    logging.debug('is initial write to {}: {}'.format(destination_filename, bool(is_initial_write)))
+    with open(destination_filename, "a") as openfile:
         data_frame.to_csv(openfile,
                           index=False,
                           mode='a',
                           sep='|',
+                          date_format='%Y%m%d',
                           header=is_initial_write,
                           line_terminator='\n',
                           columns=header_record,
                           quoting=csv.QUOTE_NONE)
-    logging.info('records written to {}: {}'.format(
-        filepath_list[1],
-        config.CHUNK_SIZE * (chunk_index + 1)))
+    rows_written = args.get('rows_written') + data_frame[data_frame.columns[0]].count()
+    logging.info('{} rows written to {} '.format(
+        str(rows_written),
+        filepath_list[1]))
+    args['rows_written'] = rows_written
     return True, args
 
 
@@ -67,10 +72,13 @@ def is_first_dataframe(**args) -> tuple:
 def create_header_record(**args) -> tuple:
     missing_columns = args.get('missing_columns')
     data_frame = args.get('data_frame')
-    header = [column for column in data_frame.columns if column not in missing_columns]
-    logging.info("columns to be imported: " + str(header))
-    args['header_record'] = header
-    return True, args
+    if len(data_frame.columns) > 0:
+        header = [column for column in data_frame.columns if column not in missing_columns]
+        logging.debug("columns to be imported: " + str(header))
+        args['header_record'] = header
+        return True, args
+    logging.critical("No columns in the data_frame")
+    return False, args
 
 
 def get_list_of_date_columns(**args) -> tuple:
@@ -135,11 +143,10 @@ def check_all_csv_columns_have_matching_db_fields(**args) -> tuple:
             missing_columns.append(column_name)
             missing_columns_text.append('{} (col {})'.format(column_name, i + 1))
     if len(missing_columns) > 0:
-        logging.warning('the following columns in the CSV file cannot be found in {}: {}'.format(
-            destination_table,
-            ", ".join(missing_columns_text)
-        ))
-        logging.warning('the columns listed above WILL NOT BE IMPORTED')
+        logging.warning('the following columns in the CSV file WILL NOT BE IMPORTED. '
+                        'They cannot be found in the DB table "{}": {}'.format(
+                                                                                destination_table,
+                                                                                ", ".join(missing_columns_text)))
     args['missing_columns'] = missing_columns
     return True, args
 
@@ -151,6 +158,9 @@ def check_no_not_null_fields_missing(**args) -> tuple:
         logging.debug(str(destination_schema[column]))
         if destination_schema[column]['IS_NULLABLE'] == 'NO':
             if column not in header_record:
+                logging.debug("header_record: " + str(header_record))
+                logging.critical("Database column '{}' cannot be NULL "
+                                 "but it's not included in the CSV file".format(column))
                 args['critical_error'] = True
                 return False, args
     return True, args

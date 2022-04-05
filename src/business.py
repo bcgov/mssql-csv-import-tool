@@ -1,11 +1,13 @@
 import src.database as database
 import src.dataframe as dataframe
 import src.file_operations as file_operations
+import src.import_types as import_types
 
 
 def clean_and_verify_csv() -> list:
     return [
         {"try": file_operations.set_log_level, "fail": []},
+        {"try": import_types.get_import_file_attributes, "fail": []},
         {"try": database.set_environment_variables, "fail": []},
         {"try": database.prompt_for_database_password_if_not_set, "fail": []},
         {"try": database.get_database_connection_string, "fail": []},
@@ -14,7 +16,7 @@ def clean_and_verify_csv() -> list:
         {"try": database.get_destination_primary_keys, "fail": []},
 
         {"try": file_operations.determine_destination_filename, "fail": []},
-        {"try": file_operations.delete_target_if_exists, "fail": []},
+        {"try": file_operations.delete_target, "fail": []},
         {"try": dataframe.process_csv_in_chunks, "fail": []},
 
         {"try": database.create_temporary_table, "fail": []},
@@ -22,7 +24,7 @@ def clean_and_verify_csv() -> list:
         {"try": database.bulk_import_from_text_file, "fail": []},
         {"try": database.count_temporary_table_records, "fail": []},
         {"try": database.merge_temporary_table_into_destination, "fail": []},
-        {"try": file_operations.delete_target_if_exists, "fail": []},
+        {"try": file_operations.delete_target_if_not_verbose, "fail": []},
     ]
 
 

@@ -36,4 +36,99 @@ class Config:
     TEMPORARY_TABLE_NAME                = '#temporary_data'
 
     # Number of seconds to wait before bulk importing the temporary file
-    BULK_IMPORT_WAIT                     = int(os.getenv('BULK_IMPORT_WAIT', '10'))
+    BULK_IMPORT_WAIT                     = int(os.getenv('BULK_IMPORT_WAIT', '3'))
+
+    IMPORT_TYPES = dict({
+        "ISC.tickets": {
+            "table": "isc.violation_tickets",
+            "has_header_record": False,
+            "columns": [
+                'VT_NUM',
+                'VIOLATION_DATE',
+                'VIOLATION_TIME_STAMP',
+                'LICENCE_PLATE',
+                'LOCATION_CODE',
+                'VEHICLE_SPEED',
+                'MVA_SECTION'
+            ],
+            "delimiter": "|",
+            "day_first": False
+        },
+        "ICBC.contraventions": {
+            "table": "icbc.contravention",
+            "has_header_record": True,
+            "columns": None,
+            "delimiter": "|",
+            "day_first": False
+        },
+        "DFCMS.document_images": {
+            "table": "DFCMS.document_images",
+            "has_header_record": True,
+            "columns": None,
+            "delimiter": ",",
+            "day_first": True
+        },
+        "DFCMS.case_test_consultations": {
+            "table": "DFCMS.case_test_consultations",
+            "has_header_record": True,
+            "columns": None,
+            "delimiter": ",",
+            "day_first": None
+        },
+        "DFCMS.cases": {
+            "table": "DFCMS.cases",
+            "has_header_record": True,
+            "columns": None,
+            "delimiter": ",",
+            "day_first": None
+        },
+        "TAS.accidents": {
+            "table": "tas.accidents",
+            "has_header_record": True,
+            "columns": None,
+            "delimiter": ",",
+            "day_first": None
+        },
+        "TAS.entities": {
+            "table": "tas.entities",
+            "has_header_record": True,
+            "columns": None,
+            "delimiter": ",",
+            "day_first": None
+        },
+        "TAS.victims": {
+            "table": "tas.victims",
+            "has_header_record": True,
+            "columns": None,
+            "delimiter": ",",
+            "day_first": None
+        },
+        "VIPS.prohibitions": {
+            "table": "vips.prohibitions",
+            "has_header_record": True,
+            "columns": None,
+            "delimiter": ",",
+            "day_first": None
+        },
+        "VIPS.impoundments": {
+            "table": "vips.impoundments",
+            "has_header_record": True,
+            "columns": None,
+            "delimiter": ",",
+            "day_first": None
+        },
+        "VIPS.licences": {
+            "table": "vips.licences",
+            "has_header_record": True,
+            "columns": None,
+            "delimiter": ",",
+            "day_first": None
+        },
+        "GIS.geolocations": {
+            "table": "gis.geolocations",
+            "has_header_record": True,
+            "columns": None,
+            "delimiter": ",",
+            "day_first": None
+        }
+    })
