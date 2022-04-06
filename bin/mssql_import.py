@@ -12,6 +12,7 @@ VERSION = pkg_resources.require('mssql-csv-import-tool')[0].version
     terminal_font_color='FFFFFF',
     progress_regex=r"^Progress: (\d+)/(\d+)$",
     progress_expr="x[0] / x[1] * 100",
+    clear_before_run=True
     )
 def main():
     parser = GooeyParser(description="Import data to RSBC's Operational Data Warehouse ")
@@ -34,14 +35,14 @@ def main():
     )
     optional_group.add_argument('--dry_run',
                         action='store_true',
-                        help=" run through the import process but don't save the changes to the database")
-    optional_group.add_argument('--verbose',
+                        help=" don't save the changes to the database")
+    optional_group.add_argument('--debug',
                         action='store_true',
-                        help=" increase the verbosity of log output")
+                        help=" show detailed output for debugging")
     args = parser.parse_args()
 
     helper.middle_logic(business.clean_and_verify_csv(),
-                        is_verbose=args.verbose,
+                        is_verbose=args.debug,
                         config=Config,
                         type=args.type,
                         is_dry_run=args.dry_run,
