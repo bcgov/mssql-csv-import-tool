@@ -12,7 +12,7 @@ Column1,Column2
 MS-SQL's bulk import tool counts the comma after the word "Some" as a delimiter which incorrectly increases
 the number of columns in the first data row from two to three.
 
-This tool helps correct and import CSV files to MS-SQL.
+This tool is used to import text files into RoadSafety BC Business Intelligence (BI) database.
 
 ## Prerequisites
 Install `python3` from https://www.python.org/downloads/windows/
@@ -29,41 +29,12 @@ From Windows command prompt:
 
 ## Usage
 
-`mssql-import -f H:\some-large-data-file.csv --table schema.table-name --environment PROD`
+ - Unix: `mssql-import`
+ - Windows: `mssql-import.exe`
 
+The tool opens a Windows GUI as shown in the screenshot below.
 
-```
-mssql-import [-h] -f FILENAME -t TABLE [-e {TEST,PROD}] [-n] [-d] [-v] [--day_first] [--month_first]
-
-Clean and verify CSV file, import to a temporary table and merge the temporary table with destination
-table. If the source file includes dates the format must be declared with either --month_first or
---day_first (version: 0.XX)
-
-optional arguments:
-  -h, --help            show this help message and exit
-
-  -f FILENAME, --filename FILENAME
-                        path and filename of the CSV file for import
-                        
-  -t TABLE, --table TABLE
-                        destination schema and table name
-                        
-  -e {TEST,PROD}, --environment {TEST,PROD}
-                        destination database environment as configured in the .env
-                        file. Defaults to 'TEST'
-                        
-  -n, --dry_run         run through import process but don't commit the changes
-  
-  -d, --delimiter       the character used to separate fields in the source file. Defaults to -d ','
-                        The other commonly used delimiter is a pipe: -d '|'
-  
-  -v --verbose          increase the verbosity of the log output
-  
-  --day_first           source date formatted with day before month: 31/03/2020 or 2020/31/03
-  
-  --month_first         source date formatted with month before day: 03/31/2020 or 2020/03/31
-
-```
+[TODO - add screenshot here]
 
 
 ## Secrets
