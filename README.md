@@ -34,7 +34,7 @@ From Windows command prompt:
 
 The tool opens a Windows GUI as shown in the screenshot below.
 
-[TODO - add screenshot here]
+![Screenshot](./screenshots/screenshot_1.png "Screenshot of Import Tool")
 
 
 ## Secrets
