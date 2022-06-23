@@ -9,12 +9,12 @@ VERSION = pkg_resources.require('mssql-csv-import-tool')[0].version
 
 def main():
     parser = argparse.ArgumentParser(description="Import data to RSBC's Operational Data Warehouse ")
-    parser.add_argument('--filename',
+    parser.add_argument('-f, --filename',
                         help='path and filename of the file for import')
-    parser.add_argument('--type',
+    parser.add_argument('-d, --destination',
                         choices=list(Config.IMPORT_TYPES.keys()),
                         help='Destination database schema and table name')
-    parser.add_argument('--environment',
+    parser.add_argument('-e, --environment',
                         choices=['TEST', 'PROD'],
                         default='TEST',
                         help='destination database environment')
