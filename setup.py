@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='mssql-csv-import-tool',
-      version='0.38',
+      version='0.39',
       description='Command line tool to import CSV files to MS-SQL server',
       url='https://github.com/bcgov/mssql-csv-import-tool',
       author='Jonathan Longe',
@@ -12,7 +12,6 @@ setup(name='mssql-csv-import-tool',
       install_requires=[
         'certifi==2021.5.30',
         'chardet==4.0.0',
-        'gooey==1.0.8.1',
         'greenlet==1.1.0',
         'idna==2.10',
         'numpy==1.22.3',

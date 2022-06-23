@@ -29,12 +29,36 @@ From Windows command prompt:
 
 ## Usage
 
- - Unix: `mssql-import`
- - Windows: `mssql-import.exe`
+usage: mssql-import
 
-The tool opens a Windows GUI as shown in the screenshot below.
+optional arguments:
 
-![Screenshot](./screenshots/screenshot_1.png "Screenshot of Import Tool")
+  -h, --help            show this help message and exit
+
+  -f, --filename FILENAME   path and filename of the file for import
+
+  -d, --destination     Destination database schema and table name (see options below)
+
+  -e, --environment {TEST,PROD}
+                        destination database environment
+
+  --dry_run             don't save the changes to the database
+
+  --debug               show detailed output for debugging
+
+destination options:
+- DFCMS.document_images
+- DFCMS.case_test_consultations
+- DFCMS.cases
+- GIS.geolocations
+- ISC.tickets 
+- ICBC.contraventions
+- TAS.accidents
+- TAS.entities
+- TAS.victims
+- VIPS.prohibitions
+- VIPS.impoundments
+- VIPS.licences
 
 
 ## Secrets
