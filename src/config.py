@@ -41,7 +41,7 @@ class Config:
     IMPORT_TYPES = dict({
         "ISC.tickets": {
             "table": "isc.violation_tickets",
-            "has_header_record": False,
+            "has_header_record": True,
             "columns": [
                 'VT_NUM',
                 'VIOLATION_DATE',
@@ -49,9 +49,10 @@ class Config:
                 'LICENCE_PLATE',
                 'LOCATION_CODE',
                 'VEHICLE_SPEED',
-                'MVA_SECTION'
+                'MVA_SECTION',
+                'DUAL'
             ],
-            "delimiter": "|",
+            "delimiter": ",",
             "day_first": False
         },
         "ICBC.contraventions": {
